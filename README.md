@@ -33,7 +33,7 @@ Join our team if you are interested with project from Japan Company! We're looki
 
 If you're excited, we'd love to hear from you.
 
-![Scan to Apply](assets/qr-code.png)
+![Scan to Apply](assets/qr-code.png#300)
 
 *Scan the QR code above to access our careers portal and submit your application directly.*
 
