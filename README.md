@@ -29,11 +29,12 @@ Just go to the `export/` and then drag and drop or click right to open `./export
 
 ## We Are Hiring
 
-Join our team of data sorcerers! We're looking for passionate individuals who want to shape the future of AI and data science. Open positions include:
+Join our team if you are interested with project from Japan Company! We're looking for passionate individuals who want to shape the future of web and AI applications. We are open for internship and employment:
 
-- **Senior Data Scientists** - Lead innovative AI projects and mentor junior team members
-- **Machine Learning Engineers** - Build and deploy scalable AI solutions
-- **Data Analysts** - Transform raw data into actionable insights
-- **AI Ethics Specialists** - Ensure responsible AI development and implementation
+If you're excited, we'd love to hear from you.
 
-If you're excited about working at the intersection of data and AI, we'd love to hear from you. Visit our careers page or reach out to our HR team for more information about current opportunities.
+![Scan to Apply](assets/qr-code.png)
+
+*Scan the QR code above to access our careers portal and submit your application directly.*
+
+or make your own submission into this [form](https://forms.gle/DFWezEoctT4StXYa6), thank you.
