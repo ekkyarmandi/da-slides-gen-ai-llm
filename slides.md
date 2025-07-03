@@ -247,15 +247,13 @@ Git commit and push the changes to the mastes branch.
 <!-- slide template="[[tpl-footer]]" -->
 ### Thank You!
 
-We Are Hiring
+We Are Hiring!
 
-%% TODO: Share the SimpleForm for generating leads %%
+Scan QR if you are interested joining US
+
+![[qr-code.png|300]]<!-- element style="border: 1px solid black" -->
 
 ---
 
 <!-- slide template="[[tpl-footer]]" -->
 ### QnA
-
-We Are Hiring
-
-%% TODO: Keep the QR for SimpleForm %%

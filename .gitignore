@@ -1,0 +1,8 @@
+.archive/
+.claude/
+.cursor/
+prompts/
+
+CLAUDE.md
+
+.DS_Store

@@ -1,0 +1,2311 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title></title>
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/white.css" id="theme" />
+    <link rel="stylesheet" href="plugin/highlight/zenburn.css" />
+	<link rel="stylesheet" href="css/layout.css" />
+	<link rel="stylesheet" href="plugin/customcontrols/style.css">
+
+	<link rel="stylesheet" href="plugin/reveal-pointer/pointer.css" />
+
+
+    <script defer src="dist/fontawesome/all.min.js"></script>
+
+	<script type="text/javascript">
+		var forgetPop = true;
+		function onPopState(event) {
+			if(forgetPop){
+				forgetPop = false;
+			} else {
+				parent.postMessage(event.target.location.href, "app://obsidian.md");
+			}
+        }
+		window.onpopstate = onPopState;
+		window.onmessage = event => {
+			if(event.data == "reload"){
+				window.document.location.reload();
+			}
+			forgetPop = true;
+		}
+
+		function fitElements(){
+			const itemsToFit = document.getElementsByClassName('fitText');
+			for (const item in itemsToFit) {
+				if (Object.hasOwnProperty.call(itemsToFit, item)) {
+					var element = itemsToFit[item];
+					fitElement(element,1, 1000);
+					element.classList.remove('fitText');
+				}
+			}
+		}
+
+		function fitElement(element, start, end){
+
+			let size = (end + start) / 2;
+			element.style.fontSize = `${size}px`;
+
+			if(Math.abs(start - end) < 1){
+				while(element.scrollHeight > element.offsetHeight){
+					size--;
+					element.style.fontSize = `${size}px`;
+				}
+				return;
+			}
+
+			if(element.scrollHeight > element.offsetHeight){
+				fitElement(element, start, size);
+			} else {
+				fitElement(element, size, end);
+			}		
+		}
+
+
+		document.onreadystatechange = () => {
+			fitElements();
+			if (document.readyState === 'complete') {
+				if (window.location.href.indexOf("?export") != -1){
+					parent.postMessage(event.target.location.href, "app://obsidian.md");
+				}
+				if (window.location.href.indexOf("print-pdf") != -1){
+					let stateCheck = setInterval(() => {
+						clearInterval(stateCheck);
+						window.print();
+					}, 250);
+				}
+			}
+	};
+
+
+        </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+
+</div>
+
+
+
+## An Overview of
+
+## Generative AI & LLM
+
+July 3rd, 2025
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+
+</div>
+
+
+
+<style>
+  ul#outline li {
+    font-size: 2rem;
+  }
+  .top-align {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+  }
+  .top-padding {
+    padding-top: 4rem;
+  }
+</style>
+
+### Outline
+
+<ul id="outline" style="line-height: 2">
+  <li class="fragment" data-fragment-index="1">Introduction</li>
+  <li class="fragment" data-fragment-index="2">What is Generative AI?</li>
+  <li class="fragment" data-fragment-index="3">What is LLM?</li>
+  <li class="fragment" data-fragment-index="4">AI Ethics & Challenges</li>
+  <li class="fragment" data-fragment-index="5">Demo</li>
+  <li class="fragment" data-fragment-index="6">Conclusion</li>
+  <li class="fragment" data-fragment-index="7">Q&A</li>
+</ul>
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+
+</div>
+
+
+
+
+### Introduction
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<div class="block">
+
+<p class="subtitle uppercase">INTRODUCTION</p>
+</div>
+
+
+
+</div>
+
+
+
+
+
+<style>
+  p {
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+  }
+  div.image-container {
+    width: 40%;
+  }
+  div.bio-container {
+    width: 60%;
+  }
+</style>
+
+<div style="display: flex; align-items: flex-start; gap: 4rem;">
+  <div class="image-container">
+<img src="01-PROJECTS/Data Sorcerer Event (3 July 2025)/assets/illustration-of-ekky.png" alt="" style="width: 300px; object-fit: fill">
+
+  </div>
+  <div class="" style="text-align: left; padding-top: 1rem; font-family: 'CommitMono Nerd Font Mono'">
+    <p style="font-weight: 700; font-size: 28px; text-transform: uppercase;">Ekky Armandi</p>
+    <p>Full-stack Python Developer</p>
+    <p>Freelancer 🧑🏼‍💻5yr  👥80+ 🛠️100+</p>
+    <div style="font-size: 20px; padding-top: 10px">
+      <p style="font-style: italic">Education</p>
+      <ul style="line-height: 2">
+        <li>(2019) S1 Teknik Industri, UAD</li>
+        <li>Undergraduate Thesis: Hybrid Genetic Algorithm</li>
+      </ul>
+    </div>
+    <div style="font-size: 20px; padding-top: 10px">
+      <p style="font-style: italic">My programming journey</p>
+<img src="01-PROJECTS/Data Sorcerer Event (3 July 2025)/assets/programming-journey.png" alt="" style="width: 500px; object-fit: fill">
+
+
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div>
+
+<aside class="notes"><p>Don&#39;t forget to attach the scripts on the end of the slide</p>
+</aside></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<div class="block">
+
+<p class="subtitle uppercase">INTRODUCTION</p>
+</div>
+
+
+
+</div>
+
+
+
+<style>
+  ul li {
+    font-size: 1.15rem;
+  }
+</style>
+
+<div style="font-family: 'CommitMono Nerd Font Mono'">
+	<div style="flex: 1; text-align: left;">
+	    <p style="font-style: italic;">Services:</p>
+	    <ul style="line-height: 2;">
+	        <li>Web Development</li>
+	        <li>Backend Development</li>
+	        <li>Data Engineering</li>
+	        <li>AI Engineering</li>
+	    </ul>
+    </div>
+	<div style="flex: 1; text-align: left;">
+		<p style="font-style: italic;">Featured Projects:</p>
+		<ul style="line-height: 2;">
+			<li><strong>Trade Arena (2023)</strong> Developing a UI for a stock trading application</li>
+			<li><strong>Real Info (2023-2025)</strong> Developing data scraping tools for collecting 20+ Real Estate websites data in Bali</li>
+			<li><strong>Zixelise (2023-2024)</strong> Developing configuration tools application for Blender 3D Rendering application</li>
+			<li><strong>ArmorizeIO (2024)</strong> Developing the SaaS backend for a cybersecurity application</li>
+			<li><strong>Bright Data (2024)</strong> Developing scalable data scraping tools and an Telegram bot interface for collecting and managing Real Estate data in Siberia</li>
+			<li><strong>OpsGuide (now)</strong> Developing AI agent and Model Context Protocol (MCP) server</li>
+		</ul>
+	</div>
+</div>
+
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+
+</div>
+
+
+
+
+### Gen AI
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<div class="block">
+
+<p class="subtitle uppercase text-right">Generative AI</p>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<split even gap="1">
+<img src="01-PROJECTS/Data Sorcerer Event (3 July 2025)/assets/2247980e-9e60-4f16-9493-d1c75c4c1b82.png" alt="" style="width: 250px; object-fit: fill">
+
+
+  <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+    <div>
+      <p class="text-xl q">What is Generative AI?</p>
+      <p><strong>Generative AI</strong> is a artificial intelligence systems that can create new content such as text, image, code, audio, even video, based on what is trained on<p>
+    </div>
+  </div>
+</split>
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<div class="block">
+
+<p class="subtitle uppercase text-right">Generative AI</p>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<style>
+  ul#key-drivers li {
+    font-size: 2rem;
+  }
+</style>
+
+### Key Drivers:
+
+<ul id="key-drivers" style="line-height: 2;">
+  <li class="fragment" data-fragment-index="1">Creative automation</li>
+  <li class="fragment" data-fragment-index="2">Natural interaction</li>
+  <li class="fragment" data-fragment-index="3">Cost reduction</li>
+  <li class="fragment" data-fragment-index="4">Rapid prototyping</li>
+  <li class="fragment" data-fragment-index="5">Cross-industry applicability</li>
+</ul>
+
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div>
+
+<aside class="notes"><ul>
+<li><strong>Creative automation</strong> → Generates content at scale (text, code, images) that previously required human expertise</li>
+<li><strong>Natural interaction</strong> → Conversational interfaces make AI accessible to non-technical users</li>
+<li><strong>Cost reduction</strong> → Automates knowledge work, reducing time from hours to seconds</li>
+<li><strong>Rapid prototyping</strong> → Enables quick iteration on ideas without specialized skills</li>
+<li><strong>Cross-industry applicability</strong> → Transforms everything from customer service to drug discovery</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<div class="block">
+
+<p class="subtitle uppercase text-right">Generative AI</p>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+### Traditional AI
+### Vs
+### Generative AI
+
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div>
+
+<aside class="notes"><p>What is the different between?</p>
+</aside></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<div class="block">
+
+<p class="subtitle uppercase text-right">Generative AI</p>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<style>
+  .comparison-grid ul li {
+    line-height: 1.8;
+    margin-bottom: 0.5rem;
+  }
+</style>
+
+<div class="comparison-grid" style="position: absolute; left: 2%; top: 15%; height: 65%; width: 48%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+
+<img src="01-PROJECTS/Data Sorcerer Event (3 July 2025)/assets/openai_image_20250702_140854.png" alt="" style="width: 350px; height: 350px; object-fit: fill">
+
+
+**Traditional AI:**
+- Classification, prediction, pattern recognition <!-- .element: style="transform: translateX(-20px)" -->
+- Rule-based systems, decision trees, neural networks <!-- .element: style="transform: translateX(-20px)" -->
+- Output: labels, scores, recommendations <!-- .element: style="transform: translateX(-20px)" -->
+
+
+</div>
+
+<div class="comparison-grid" style="position: absolute; left: 50%; top: 15%; height: 65%; width: 48%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+
+<img src="01-PROJECTS/Data Sorcerer Event (3 July 2025)/assets/openai_image_20250702_141837.png" alt="" style="width: 350px; height: 350px; object-fit: fill">
+
+
+**Generative AI:**
+- Creates original content from learned patterns <!-- .element: style="transform: translateX(-20px)" -->
+- Uses models like GPTs, VAEs, GANs, diffusion models <!-- .element: style="transform: translateX(-20px)" -->
+- Output: new text, images, music, code <!-- .element: style="transform: translateX(-20px)" -->
+
+
+</div>
+
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div>
+
+<aside class="notes"><p>Traditional AI focuses on analyzing data and making predictions or decisions based on patterns, while Generative AI creates new content like
+text, images, or code.</p>
+</aside></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<div class="block">
+
+<p class="subtitle uppercase text-right">Generative AI</p>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+### Gen AI implementation
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<div class="block">
+
+<p class="subtitle uppercase text-right">Generative AI</p>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+- ChatGPT (text/code/image generation) <!-- .element: style="font-size: 2rem; line-height: 3rem" -->
+- Suno (music generation) <!-- .element: style="font-size: 2rem; line-height: 3rem" -->
+- Elevenlabs (voice generation) <!-- .element: style="font-size: 2rem; line-height: 3rem" -->
+- Midjourney (image/video generation) <!-- .element: style="font-size: 2rem; line-height: 3rem" -->
+- Claude Code (code generation) <!-- .element: style="font-size: 2rem; line-height: 3rem" -->
+- etc. <!-- .element: style="font-size: 2rem; line-height: 3rem" -->
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<div class="block">
+
+<p class="subtitle uppercase text-right">Generative AI</p>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<img src="01-PROJECTS/Data Sorcerer Event (3 July 2025)/assets/charts/research-by-tractica.png" alt="" style="height: 70%; object-fit: scale-down">
+
+
+Source: [Tractica Survey](https://www.tractica.com/research/artificial-intelligence-market-forecasts/)
+
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div>
+
+<aside class="notes"><ul>
+<li>Evidence of the AI adoption rise you should not neglect</li>
+<li>The chart is showing the AI adoption growth percentage every year</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<div class="block">
+
+<p class="subtitle uppercase text-right">Generative AI</p>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<img src="01-PROJECTS/Data Sorcerer Event (3 July 2025)/assets/charts/AI-adoption-growth-by-region.png" alt="" style="height: 70%; object-fit: scale-down">
+
+
+Source: [Hostinger](https://www.hostinger.com/tutorials/how-many-companies-use-ai)
+
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div>
+
+<aside class="notes"><ul>
+<li>Evidence of the AI adoption rise you should not neglect</li>
+<li>The chart is showing the AI adoption growth in percentage by different country every year</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<div class="block">
+
+<p class="subtitle uppercase text-right">Generative AI</p>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<img src="01-PROJECTS/Data Sorcerer Event (3 July 2025)/assets/charts/ai-adoption-in-indonesia.png" alt="" style="height: 70%; object-fit: scale-down">
+
+
+Source: [OpenAI Research](https://chatgpt.com/s/t_686512df670481918f69e44ed0b3772c)
+
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div>
+
+<aside class="notes"><p><strong>Interpretation of the chart</strong>
+Explosive take-off (2023 → 2024) – Within a single year, the share of Indonesians exposed to AI tools doubled, driven by mobile-first generative-AI apps, Bahasa-Indonesia interfaces, and viral usage of ChatGPT and image generators.</p>
+<p><strong>Underlying drivers</strong></p>
+<ul>
+<li>Mobile affordability</li>
+<li>Local-language UX</li>
+<li>Platform push – e-commerce, banking and ride-hailing apps embedded AI helpers (copywriting, fraud alerts, dynamic pricing), nudging millions of users into first-time contact with AI.</li>
+<li>Outlook – With 8 in 10 Indonesians already acquainted with AI, the next frontier is depth of use: moving from occasional chat and translation into embedded, task-specific agents (e.g., tax filing, farm-price forecasting) and ensuring trust and digital-skills keep pace with penetration.</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+
+</div>
+
+
+
+
+### Large Language Model (LLM)
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<div class="block">
+
+<p class="subtitle uppercase text-right">Large Language Model</p>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+<style>
+  .side-image {
+    transform: translateY(-1px);
+  }
+</style>
+
+<split even gap="1">
+<img src="01-PROJECTS/Data Sorcerer Event (3 July 2025)/assets/openai_image_20250702_155831.png" alt="" style="height: 100%; width: 250px; object-fit: fill" class="side-image">
+
+
+  <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+    <div>
+      <p class="text-xl q">What is LLM?</p>
+      <p><strong>LLM or Large Language Model</strong> is specific Generative AI focus on text generation. LLM is a AI system trained on <strong>massive text dataset</strong> to understand and generate human-like text.<p>
+    </div>
+  </div>
+</split>
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<div class="block">
+
+<p class="subtitle uppercase text-right">Large Language Model</p>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+<style>
+code {
+  font-size: 14px !important;
+}
+pre {
+  font-size: 14px !important;
+  color: #e2e8f0 !important;
+}
+</style>
+
+<div class="" style="position: absolute; left: 2%; top: 15%; height: 65%; width: 48%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<img src="01-PROJECTS/Data Sorcerer Event (3 July 2025)/assets/Transformer.png" alt="" style="object-fit: scale-down">
+
+Source: [Attention is All you Need](https://proceedings.neurips.cc/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf)
+</div>
+
+<div class="" style="position: absolute; left: 50%; top: 15%; height: 65%; width: 48%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+How it works?<!-- .element: style="padding-bottom: 0" class="text-xl q" -->
+
+```markdown
+Text: "The cat sat"
+    ↓
+[Tokenize] → ["The", "cat", "sat"]
+    ↓
+[Embed] → [1.2, 0.8, 0.5] (convert to numbers)
+    ↓
+[Attention] → "Which words matter most?"
+    ↓
+[Transform] → Context-aware representations
+    ↓
+[Predict] → Next word: "on" (70% probability)
+```
+</div>
+
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div>
+
+<aside class="notes"><p>Frontier model like Claude or GPT-4 are trained on 10+ TB training data</p>
+</aside></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<div class="block">
+
+<p class="subtitle uppercase text-right">Large Language Model</p>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+### Terminology
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<div class="block">
+
+<p class="subtitle uppercase text-right">Large Language Model</p>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+<style>
+li {
+  font-size: 2rem;
+}
+</style>
+<ul style="line-height: 2;">
+	<li><strong>Tokenization</strong>  -> Breaking text into smaller units (tokens) that the model can process. Example: "ChatGPT is amazing!" → [Chat, G, PT, is, amaz, ing, !]</li>
+	<li class="fragment" data-fragment-index="1"><strong>Prompt</strong> -> The input text/instructions you give to the LLM to get a desired output. Example prompt: "Summarize this article in 3 bullet points"</li>
+	<li class="fragment" data-fragment-index="2"><strong>Inference</strong> -> The process of running the model to generate predictions/outputs.
+	<li class="fragment" data-fragment-index="3"><strong>Zero-shot Learning</strong> -> Model performs a task without any examples in the prompt.
+	<li class="fragment" data-fragment-index="4"><strong>Few-shot Learning</strong> -> Model learns from a few examples provided in the prompt.
+</ul>
+
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div>
+
+<aside class="notes"><ul>
+<li>There are 5 important terminology you have to understand</li>
+<li>Training vs Inference: Training builds the model, inference uses it.</li>
+<li>The zero-shot and few-shot are belong to prompt engineering, there are a lot more terminology in Prompt Engineering</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<div class="block">
+
+<p class="subtitle uppercase text-right">Large Language Model</p>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+### Models
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<div class="block">
+
+<p class="subtitle uppercase text-right">Large Language Model</p>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+#### HuggingFace.co<!-- .element: style="margin: 0" -->
+The bigest open-source models repository and one of AI hosting platform.
+
+<img src="01-PROJECTS/Data Sorcerer Event (3 July 2025)/assets/2025-06-02-hugging-face.png" alt="" style="height: 60%; margin: 0; object-fit: scale-down">
+
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<div class="block">
+
+<p class="subtitle uppercase text-right">Large Language Model</p>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+#### OpenRouter.ai<!-- .element: style="margin: 0" -->
+LLM provider and router.
+
+<img src="01-PROJECTS/Data Sorcerer Event (3 July 2025)/assets/2025-06-02-openrouter.png" alt="" style="height: 60%; margin: 0; object-fit: scale-down">
+
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+
+</div>
+
+
+
+
+### AI Adoption
+### In Different Sectors
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<div class="block">
+
+<p class="subtitle uppercase text-right">AI Adoption</p>
+</div>
+
+
+
+</div>
+
+
+
+
+<img src="01-PROJECTS/Data Sorcerer Event (3 July 2025)/assets/charts/companies-using-generative-AI-1900x2048.png" alt="" style="height: 70%; object-fit: scale-down">
+
+
+Source: [Hostinger](https://www.hostinger.com/tutorials/how-many-companies-use-ai)
+
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div>
+
+<aside class="notes"><p>Regional Leaders:</p>
+<ul>
+<li>North America leads with 82% adoption in 2024</li>
+<li>Europe follows closely at 80%</li>
+<li>Developing markets show the highest growth rate (49% to 77%, a 57% increase)</li>
+</ul>
+<p>Growth Patterns:</p>
+<ul>
+<li>All regions experienced double-digit growth</li>
+<li>Developing markets and Greater China had the most dramatic jumps (28 and 27 percentage points respectively)</li>
+<li>Even mature markets (North America, Europe) continued strong growth despite already high 2023 levels</li>
+</ul>
+<p>Implications: The data suggests AI is transitioning from early adoption to mainstream implementation across all global markets, with developing regions rapidly catching up to established markets.</p>
+</aside></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<div class="block">
+
+<p class="subtitle uppercase text-right">AI Adoption</p>
+</div>
+
+
+
+</div>
+
+
+
+
+
+### The Benificial of Learning AI
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<div class="block">
+
+<p class="subtitle uppercase text-right">AI Adoption</p>
+</div>
+
+
+
+</div>
+
+
+
+
+
+<split>
+<img src="01-PROJECTS/Data Sorcerer Event (3 July 2025)/assets/openai_image_20250702_174239.png" alt="" style="width: 300px; object-fit: fill">
+
+<img src="01-PROJECTS/Data Sorcerer Event (3 July 2025)/assets/openai_image_20250702_174327.png" alt="" style="width: 300px; object-fit: fill" class="fragment" data-fragment-index="1">
+
+<img src="01-PROJECTS/Data Sorcerer Event (3 July 2025)/assets/openai_image_20250702_174411.png" alt="" style="width: 300px; object-fit: fill" class="fragment" data-fragment-index="2">
+
+</split>
+
+1. Career Resilience & Opportunities <!-- .element: style="font-size: 2rem; transform: translateX(-20px)" -->
+1. &shy;<!-- .element: style="font-size: 2rem; transform: translateX(-20px)" class="fragment" data-fragment-index="1" -->Personal Productivity Multiplier 
+1. &shy;<!-- .element: style="font-size: 2rem; transform: translateX(-20px)" class="fragment" data-fragment-index="2" -->Economic Advantage 
+
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div>
+
+<aside class="notes"><ol>
+<li>Career Resilience &amp; Opportunities</li>
+</ol>
+<ul>
+<li>AI literacy will become as essential as computer skills are today</li>
+<li>New job roles emerging: AI prompt engineers, AI ethicists, AI trainers</li>
+<li>Ability to augment your current role with AI tools, making you 2-10x more productive</li>
+</ul>
+<ol start="2">
+<li>Personal Productivity Multiplier</li>
+</ol>
+<ul>
+<li>Automate repetitive tasks (writing, data analysis, research)</li>
+<li>Create content, code, and solutions faster with AI assistance</li>
+<li>Make better decisions using AI-powered insights and predictions</li>
+</ul>
+<ol start="3">
+<li>Economic Advantage</li>
+</ol>
+<ul>
+<li>Freelancers and entrepreneurs can compete with larger organizations using AI tools</li>
+<li>Early adopters can monetize AI skills through consulting, training, or building AI-powered products</li>
+<li>Understanding AI helps identify investment opportunities and avoid AI-related scams</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+
+</div>
+
+
+
+
+### Ethics & Challenges
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<div class="block">
+
+<p class="subtitle uppercase text-right">Ethics & Challenges</p>
+</div>
+
+
+
+</div>
+
+
+
+
+
+<div class="comparison-grid top-align top-padding" style="position: absolute; left: 2%; top: 10%; height: 60%; width: 48%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+**For Creators/Developers:**
+
+<!-- Start of Selection -->
+- Design systems to minimize bias in training data <!-- .element: style="transform: translateX(-20px); line-height: 1.8; margin-bottom: 0.5rem" -->
+- Implement privacy safeguards and data protection <!-- .element: style="transform: translateX(-20px); line-height: 1.8; margin-bottom: 0.5rem" -->
+- Build transparency and explainability features <!-- .element: style="transform: translateX(-20px); line-height: 1.8; margin-bottom: 0.5rem" -->
+- Respect intellectual property in training datasets <!-- .element: style="transform: translateX(-20px); line-height: 1.8; margin-bottom: 0.5rem" -->
+- Consider environmental impact of model training <!-- .element: style="transform: translateX(-20px); line-height: 1.8; margin-bottom: 0.5rem" -->
+<!-- End of Selection -->
+</div>
+
+<div class="comparison-grid top-align top-padding" style="position: absolute; left: 50%; top: 10%; height: 60%; width: 48%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+**For Users:**
+
+- Verify AI-generated content for accuracy <!-- .element: style="transform: translateX(-20px); line-height: 1.8; margin-bottom: 0.5rem" -->
+- Disclose when using AI-generated content <!-- .element: style="transform: translateX(-20px); line-height: 1.8; margin-bottom: 0.5rem" -->
+- Avoid using AI-generated content for deceptive purposes (deepfakes, misinformation) <!-- .element: style="transform: translateX(-20px); line-height: 1.8; margin-bottom: 0.5rem" -->
+- Respect copyright when prompting with others' work <!-- .element: style="transform: translateX(-20px); line-height: 1.8; margin-bottom: 0.5rem" -->
+- Maintain critical thinking rather than blind trust <!-- .element: style="transform: translateX(-20px); line-height: 1.8; margin-bottom: 0.5rem" -->
+</div>
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<div class="block">
+
+<p class="subtitle uppercase text-right">Ethics & Challenges</p>
+</div>
+
+
+
+</div>
+
+
+
+
+**Shared Responsibilities:**
+- Both must consider impact on jobs and society <!-- .element: style="transform: translateX(-20px); line-height: 1.8; margin-bottom: 0.5rem" -->
+- Both should advocate for responsible AI policies <!-- .element: style="transform: translateX(-20px); line-height: 1.8; margin-bottom: 0.5rem" -->
+- Both need to understand AI limitations <!-- .element: style="transform: translateX(-20px); line-height: 1.8; margin-bottom: 0.5rem" -->
+- Both should prioritize human agency and decision-making <!-- .element: style="transform: translateX(-20px); line-height: 1.8; margin-bottom: 0.5rem" -->
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+
+</div>
+
+
+
+
+### Demo
+
+Use Claude Code (Claude CLI) for creating a blog based on this slide
+
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div>
+
+<aside class="notes"><p>Create a blog post based on this slides using Claude Code and then include prompt for uploading the content into my <a href="https://ekky.dev/blog">https://ekky.dev/blog</a></p>
+<ul>
+<li><code>cd</code> to Portfolio directory</li>
+</ul>
+<pre><code class="language-txt">Read this slides including the files attached in it i.e. ![[filename]]
+Write a blog content based on the slides then put it in @draft-file.md along with the attributes shown in the frontmatter.
+
+Generate the image using `openai-imagen` tools, use `~/projects/Portfolio/public/images/` as the output directory. Replace the `image` frontmatter content in @draft-file.md with the generated image.
+
+Change the draft filename into this format &quot;yyyy-mm-dd-blog-title-slug.md&quot; using `mv` command.
+
+Git commit and push the changes to the mastes branch.
+</code></pre>
+</aside></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+
+</div>
+
+
+
+
+### Conclusion
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<div class="block">
+
+<p class="subtitle uppercase text-right">Conclusion</p>
+</div>
+
+
+
+</div>
+
+
+
+
+
+### Key Takeaways
+
+- **Generative AI** creates new content (text, images, code) from learned patterns <!-- .element: style="line-height: 1.8; margin-bottom: 0.5rem" -->
+- **LLMs** are specialized Gen AI models focused on understanding and generating human-like text <!-- .element: style="line-height: 1.8; margin-bottom: 0.5rem" -->
+- **Practical Applications** span across industries - from creative automation to customer service <!-- .element: style="line-height: 1.8; margin-bottom: 0.5rem" -->
+- **Ethical Use** requires both developers and users to prioritize transparency, accuracy, and human agency <!-- .element: style="line-height: 1.8; margin-bottom: 0.5rem" -->
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<div class="block">
+
+<p class="subtitle uppercase text-right">Conclusion</p>
+</div>
+
+
+
+</div>
+
+
+
+
+
+### The Future is Collaborative
+
+- AI is a **tool**, not a replacement for human creativity and judgment <!-- .element: style="line-height: 1.8; margin-bottom: 0.5rem" -->
+- Understanding AI capabilities helps us leverage it effectively in our daily work <!-- .element: style="line-height: 1.8; margin-bottom: 0.5rem" -->
+- The key is finding the right balance between automation and human expertise <!-- .element: style="line-height: 1.8; margin-bottom: 0.5rem" -->
+- Stay curious, keep learning, and adapt responsibly <!-- .element: style="line-height: 1.8; margin-bottom: 0.5rem" -->
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+
+</div>
+
+
+
+### Thank You!
+
+We Are Hiring!
+
+Scan QR if you are interested joining US
+
+<img src="01-PROJECTS/Data Sorcerer Event (3 July 2025)/assets/qr-code.png" alt="" style="border: 1px solid black; width: 300px; object-fit: fill">
+
+
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 700px; width: 960px; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<style>
+  .subtitle {
+    color: black;
+    opacity: 30%;
+    font-weight: 500;
+    font-family: 'Fira Code';
+    font-size: 16px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+ .text-xl {
+	 font-size: 1.75rem;
+   padding-bottom: 3rem;
+ }
+ .q {
+   font-style: italic;
+   font-family: 'Baskerville';
+ }
+ .text-right {
+   text-align: right;
+ }
+</style>
+
+<div class="" style="position: absolute; left: 80%; top: 0%; height: 6%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+
+</div>
+
+
+
+### QnA
+
+<div class="" style="position: absolute; left: 0%; top: 94%; height: 6%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<p class="subtitle">@ekkyarmandi | me@ekky.dev | https://ekky.dev</p>
+</div>
+</div></script></section></div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script src="plugin/zoom/zoom.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/math/math.js"></script>
+	<script src="plugin/mermaid/mermaid.js"></script>
+	<script src="plugin/chart/chart.min.js"></script>
+	<script src="plugin/chart/plugin.js"></script>
+	<script src="plugin/customcontrols/plugin.js"></script>
+	<script src="plugin/reveal-pointer/pointer.js"></script>
+
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+	  function isLight(color) {
+		let hex = color.replace('#', '');
+
+		// convert #fff => #ffffff
+		if(hex.length == 3){
+			hex = `${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}`;
+		}
+
+		const c_r = parseInt(hex.substr(0, 2), 16);
+		const c_g = parseInt(hex.substr(2, 2), 16);
+		const c_b = parseInt(hex.substr(4, 2), 16);
+		const brightness = ((c_r * 299) + (c_g * 587) + (c_b * 114)) / 1000;
+		return brightness > 155;
+	}
+
+	var bgColor = getComputedStyle(document.documentElement).getPropertyValue('--r-background-color').trim();
+	var isLight = isLight(bgColor);
+
+	if(isLight){
+		document.body.classList.add('has-light-background');
+	} else {
+		document.body.classList.add('has-dark-background');
+	}
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath.MathJax3,
+		  RevealMermaid,
+		  RevealChart,
+		  RevealCustomControls,
+	      RevealPointer,
+        ],
+
+
+    	allottedTime: 120 * 1000,
+
+		mathjax3: {
+			mathjax: 'plugin/math/mathjax/tex-mml-chtml.js',
+		},
+		markdown: {
+		  gfm: true,
+		  mangle: true,
+		  pedantic: false,
+		  smartLists: false,
+		  smartypants: false,
+		},
+
+		mermaid: {
+			theme: isLight ? 'default' : 'dark',
+		},
+
+		customcontrols: {
+			controls: [
+			]
+		},
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {"width":960,"height":700,"margin":0.04,"controls":true,"progress":true,"slideNumber":false,"transition":"fade","transitionSpeed":"default"}, queryOptions);
+    </script>
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+
+  <!-- created with Advanced Slides -->
+</html>
